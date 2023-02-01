@@ -3,8 +3,9 @@ import LoadingBar from '../components/LoadingBar/LoadingBar'
 import constantRoutes from '../router/constantRoutes'
 import { addTagView, setTagView } from 'components/TagView/TagViewUtils'
 import {Cookies, Notify} from "quasar";
-import {isToken} from "src/api/UserApi";
+import {isToken, out} from "src/api/UserApi";
 import router from "src/router";
+import {getConfig} from "src/api/ConfigApi";
 
 /**
  * Navigation guard and permission verification
@@ -17,7 +18,9 @@ import router from "src/router";
 export default async ({ app, router, Vue, store }) => {
   router.beforeEach((to, from, next) => {
     // Process TAGVIEW and breadcrumbs after successful login
-    handleTagViewAndBreadcrumbsAndKeepAlive(from, to, store, Vue)
+    handleTagViewAndBreadcrumbsAndKeepAlive(from, to, store, Vue, next)
+
+    //先查询网站配置
     // Simulate obtaining token
     sessionStorage.setItem('access_token',9898)
     const token = sessionStorage.getItem('access_token')
@@ -38,7 +41,6 @@ export default async ({ app, router, Vue, store }) => {
       isToken(token).then((e)=>{
         if (e.data.code === 200 ){
           // You cannot access the login interface after logging in
-
           if (to.path === '/logon') {
             next({ path: '/console' })
           }
@@ -48,6 +50,14 @@ export default async ({ app, router, Vue, store }) => {
           } else {
             // Simulate when user permissions do not exist, obtain user permissions
             const userRole = sessionStorage.getItem('user_role')
+            if (userRole === null){
+              console.log(111)
+              out().then((e)=>{
+                next({path:'/logon'})
+              }).catch((e)=>{
+                next({path:'/NoFound500'})
+              })
+            }
             // And set the corresponding route according to the permissions
             store.commit('SET_ROLES_AND_ROUTES', userRole)
             // If you are prompted that addRoutes is deprecated, use the spread operator to complete the operation
@@ -75,8 +85,6 @@ export default async ({ app, router, Vue, store }) => {
             timeout: 1500
           })
         }
-      }).catch((e)=>{
-        next({path:'/NoFound500'})
       })
     } else {
       // go to a route that does not require authorization
@@ -100,10 +108,57 @@ export default async ({ app, router, Vue, store }) => {
  * @param to
  * @param store
  * @param Vue
+ * @param next
  */
-function handleTagViewAndBreadcrumbsAndKeepAlive (from, to, store, Vue) {
+function handleTagViewAndBreadcrumbsAndKeepAlive (from, to, store, Vue, next=null) {
   if (to.name != null) {
-    document.title = to.meta.title + Vue.prototype.$title
+    getConfig().then((e)=>{
+      // 放入session
+      if (e.data.code === 200){
+        sessionStorage.setItem('web_config', JSON.stringify(e.data.data[0]));
+        if (to.meta.title === undefined || to.meta.title === '') {
+          document.title = e.data.data[0].Title
+        } else {
+          document.title = to.meta.title + ' | ' + e.data.data[0].Title
+        }
+        //查询是否关闭网站
+        if (e.data.data[0].webStatus !== "1"){
+          next({path:'/NoFound503'})
+          Notify.create({
+            icon: 'announcement',
+            message: e.data.data[0].webStopDesc,
+            color: 'red',
+            position: 'top',
+            timeout: 1500
+          })
+        }
+      } else {
+        next({path:'/NoFound503'})
+        Notify.create({
+          icon: 'announcement',
+          message: e.data.msg,
+          color: 'red',
+          position: 'top',
+          timeout: 1500
+        })
+      }
+
+    }).catch((e)=>{
+      next({path:'/NoFound503'})
+      this.$q.notify({
+        icon: 'announcement',
+        message: "服务器错误",
+        color: 'red',
+        position: 'top',
+        timeout: 1500
+      })
+      // if (to.meta.title === undefined || to.meta.title === '') {
+      //   document.title = Vue.prototype.$title
+      // } else {
+      //   document.title = to.meta.title + Vue.prototype.$title
+      // }
+    })
+    // document.title = to.meta.title + Vue.prototype.$title
     LoadingBar.start()
     // is a public route ?
     for (let i = 0; i < constantRoutes.length; i++) {

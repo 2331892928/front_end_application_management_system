@@ -139,6 +139,7 @@
 import LottieWebCimo from '../../components/LottieWebCimo/LottieWebCimo'
 import {UserLogon} from "src/api/UserApi";
 import {routingArea} from "src/routerConfig/routingArea";
+import moment from "moment";
 
 export default {
   name: 'logon',
@@ -166,7 +167,7 @@ export default {
           sessionStorage.setItem('user_role', e.data.data[0].permission);
           sessionStorage.setItem('user_name', e.data.data[0].username);
           // 将用户信息保存进session,防止重复请求
-          sessionStorage.setItem('user_name', e.data.data[0]);
+          sessionStorage.setItem('user_info', JSON.stringify(e.data.data[0]));
           //then里settime变成了异步，双重变为同步，不可读e的内容，否则仍为异步
           const lt1 = setTimeout(() => {
             const lt = setTimeout(() => {
@@ -176,7 +177,21 @@ export default {
                 message: 'hi，' + this.username + ' 欢迎回来',
                 color: 'green',
                 position: 'top',
-                timeout: 1500
+                timeout: 3000
+              })
+              this.$q.notify({
+                icon: 'insert_emoticon',
+                message: '上一次登录：' + moment(parseInt(e.data.data[0].lastLogonTime)).format('YYYY/MM/DD hh:mm:ss'),
+                color: 'green',
+                position: 'top',
+                timeout: 3000
+              })
+              this.$q.notify({
+                icon: 'insert_emoticon',
+                message: '上一次登录IP：' + e.data.data[0].lastLogonIp,
+                color: 'green',
+                position: 'top',
+                timeout: 3000
               })
               clearTimeout(lt)
               this.loading = !this.loading

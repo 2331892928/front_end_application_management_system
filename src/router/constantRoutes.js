@@ -43,7 +43,29 @@ const constantRoutes = [
       isHidden: true
     },
     component: () => import('../components/Error/NoFound500')
-  }
+  },
+  // {
+  //   path: '/NoFound503',
+  //   name: 'NoFound503',
+  //   meta: {
+  //     roles: ['admin', 'editor'],
+  //     title: '503',
+  //     icon: 'sentiment_dissatisfied',
+  //     isHidden: true
+  //   },
+  //   component: () => import('../components/Error/NoFound503')
+  // },
+  // {
+  //   path: '/NoFound403',
+  //   name: 'NoFound403',
+  //   meta: {
+  //     roles: ['admin', 'editor'],
+  //     title: '503',
+  //     icon: 'sentiment_dissatisfied',
+  //     isHidden: true
+  //   },
+  //   component: () => import('../components/Error/NoFound403')
+  // }
 ]
 
 export default constantRoutes

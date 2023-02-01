@@ -5,7 +5,7 @@ Vue.config.productionTip = false
 Vue.prototype.$PUBLIC_PATH = process.env.VUE_ROUTER_BASE
 
 // 浏览器 title
-Vue.prototype.$title = ' | Vue Quasar'
+Vue.prototype.$title = ' | 湮灭应用/用户管理系统'
 
 // 侧边栏风格
 Vue.prototype.$SildeBar = 'hHh lpR fFf' // 风格二：lHh lpR fFf
@@ -22,9 +22,8 @@ Vue.prototype.$Max_KeepAlive = 10
 
 // 侧边栏底部文字
 Vue.prototype.$buttonList = [
-  { text: 'Quasar', URL: 'http://www.quasarchs.com/' },
-  { text: 'Github', URL: 'https://github.com/972784674t/vue-quasar-manage' },
-  { text: 'Gitee', URL: 'https://gitee.com/incimo/vue-quasar-manage' },
-  { text: 'GreaterWMS', URL: 'https://github.com/Singosgu/GreaterWMS' },
-  { text: '关于作者', URL: '/cimo' }
+  { text: '湮灭网络工作室', URL: 'https://www.ymypay.cn' },
+  { text: 'Github', URL: 'https://github.com/2331892928/front_end_application_management_system' },
+  { text: '关于作者', URL: 'https://www.ymypay.cn' },
+  { text: 'Power by AMEN', URL: 'https://www.ymypay.cn' }
 ]

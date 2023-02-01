@@ -21,6 +21,7 @@ const asyncRoutesChildren = [
     meta: {
       roles: ['admin', 'user', 'test'],
       title: '个人管理',
+      itemLabel: '用户区域',
       icon: 'person',
       keepAlive: true
     },
@@ -40,298 +41,215 @@ const asyncRoutesChildren = [
     ]
   },
   {
-    path: '/start',
-    name: 'start',
+    path: '/buy',
+    name: 'buy',
     meta: {
-      roles: ['admin', 'editor'],
-      title: '快速起步',
-      icon: 'design_services',
+      roles: ['admin','user'],
+      title: '在线购买',
+      icon: 'coronavirus',
       keepAlive: true
     },
     component: layout,
     children: [
       {
-        path: 'getting-started',
-        name: 'gettingStarted',
+        path: 'card-buy',
+        name: 'card-buy',
         meta: {
-          roles: ['admin', 'editor'],
-          title: '基础配置',
-          icon: 'tune',
+          roles: ['admin', 'user', 'test'],
+          title: '卡密授权',
+          icon: 'reorder',
           keepAlive: true
         },
-        component: () => import('pages/router/gettingStarted')
+        component: () => import('pages/user/selfEdit')
       },
       {
-        path: 'router-config',
-        name: 'routerConfig',
+        path: 'card-buy-true',
+        name: 'card-buy-true',
         meta: {
-          roles: ['admin', 'editor'],
-          title: '路由配置',
-          icon: 'multiple_stop',
+          roles: ['admin', 'user', 'test'],
+          title: '购买卡密',
+          icon: 'reorder',
           keepAlive: true
         },
-        component: () => import('pages/router/routerConfig')
+        component: () => import('pages/user/selfEdit')
       },
       {
-        path: 'my-menu',
-        name: 'myMenu',
+        path: 'app-buy-true',
+        name: 'app-buy-true',
         meta: {
-          roles: ['admin', 'test'],
-          title: '关于菜单',
-          icon: 'menu',
+          roles: ['admin', 'user', 'test'],
+          title: '购买应用',
+          icon: 'reorder',
           keepAlive: true
         },
-        component: () => import('pages/router/myMenu')
+        component: () => import('pages/user/selfEdit')
       },
       {
-        path: 'async-router',
-        name: 'asyncRouter',
+        path: 'usergroup-buy-true',
+        name: 'usergroup-buy-true',
         meta: {
-          roles: ['admin', 'editor'],
-          title: '动态路由',
-          icon: 'all_inclusive',
+          roles: ['admin', 'user', 'test'],
+          title: '购买用户组',
+          icon: 'reorder',
           keepAlive: true
         },
-        component: () => import('pages/router/asyncRouter')
+        component: () => import('pages/user/selfEdit')
       },
       {
-        path: 'async-router-impl',
-        name: 'asyncRouterImpl',
+        path: 'balance-buy-true',
+        name: 'balance-buy-true',
         meta: {
-          roles: ['admin', 'editor'],
-          title: '动态路由实现思路',
+          roles: ['admin', 'user', 'test'],
+          title: '充值余额',
+          icon: 'reorder',
           keepAlive: true
         },
-        component: () => import('pages/router/asyncRouterImpl')
+        component: () => import('pages/user/selfEdit')
       }
     ]
   },
   {
-    path: '/optimization',
-    name: 'optimization',
+    path: routingArea.console + '/app',
+    name: 'app',
     meta: {
-      roles: ['admin', 'test'],
-      title: '性能优化',
-      icon: 'memory'
+      roles: ['admin', 'user', 'test'],
+      title: '应用管理',
+      itemLabel: '应用区域',
+      icon: 'integration_instructions',
+      keepAlive: true
     },
     component: layout,
     children: [
       {
-        path: 'volume-optimization',
-        name: 'VolumeOptimization',
+        path: 'app-list',
+        name: 'app-list',
         meta: {
-          roles: ['admin', 'editor'],
-          title: '体积优化',
-          icon: 'miscellaneous_services',
+          roles: ['admin', 'user', 'test'],
+          title: '应用列表',
+          icon: 'reorder',
           keepAlive: true
         },
-        component: () => import('pages/optimization/VolumeOptimization')
+        component: () => import('pages/app/appList')
       },
       {
-        path: 'render-optimization',
-        name: 'renderOptimization',
+        path: 'app-edit',
+        name: 'app-edit',
         meta: {
-          roles: ['admin', 'editor'],
-          title: '渲染性能优化',
-          icon: 'flip',
+          roles: ['admin', 'user', 'test'],
+          title: '应用修改',
+          icon: 'reorder',
           keepAlive: true
         },
-        component: () => import('pages/optimization/renderOptimization')
+        component: () => import('pages/user/selfEdit')
+      },
+    ]
+  },
+  {
+    path: routingArea.console + '/version',
+    name: 'version',
+    meta: {
+      roles: ['admin', 'user', 'test'],
+      title: '版本管理',
+      icon: 'all_inclusive',
+      keepAlive: true
+    },
+    component: layout,
+    children: [
+      {
+        path: 'version-list',
+        name: 'version-list',
+        meta: {
+          roles: ['admin', 'user', 'test'],
+          title: '版本列表',
+          icon: 'reorder',
+          keepAlive: true
+        },
+        component: () => import('pages/user/selfEdit')
       }
     ]
   },
   {
-    path: '/component',
-    name: 'component',
-    component: layout,
+    path: routingArea.console + '/umanagement',
+    name: 'umanagement',
     meta: {
-      roles: ['admin', 'test'],
-      title: '组件说明',
-      icon: 'apps',
-      isOpen: false,
-      isHidden: false
+      roles: ['admin', 'user', 'test'],
+      title: '用户管理',
+      icon: 'people',
+      keepAlive: true
     },
+    component: layout,
     children: [
       {
-        path: 'keepalive-doc',
-        name: 'keepaliveDoc',
+        path: 'user-list',
+        name: 'user-list',
         meta: {
-          roles: ['admin', 'editor'],
-          title: 'keep-alive 缓存',
-          icon: 'select_all',
+          roles: ['admin', 'user', 'test'],
+          title: '用户列表',
+          icon: 'reorder',
           keepAlive: true
         },
-        component: () => import('pages/components/keepaliveDoc')
+        component: () => import('pages/user/selfEdit')
       },
       {
-        path: 'scroll-demo',
-        name: 'scrollDemo',
+        path: 'app-edit',
+        name: 'app-edit',
         meta: {
-          roles: ['admin', 'editor'],
-          title: '滚动区域',
-          icon: 'swap_vert',
-          keepAlive: true
-        },
-        component: () => import('pages/components/scrollDemo')
-      },
-      {
-        path: 'tagView-demo',
-        name: 'tagViewDemo',
-        meta: {
-          roles: ['admin', 'editor'],
-          title: 'tagView',
-          icon: 'exit_to_app',
-          keepAlive: true
-        },
-        component: () => import('pages/components/tagViewDemo')
-      },
-      {
-        path: 'breadcrumbs-demo',
-        name: 'breadcrumbsDemo',
-        meta: {
-          roles: ['admin', 'editor'],
-          title: '面包屑',
-          icon: 'clear_all',
+          roles: ['admin', 'user', 'test'],
+          title: '用户修改',
+          icon: 'reorder',
           keepAlive: true,
-          isHidden: false
+          isHidden: true
         },
-        component: () => import('pages/components/breadCrumbsDemo')
+        component: () => import('pages/user/selfEdit')
       },
-      {
-        path: 'icon',
-        name: 'icon',
-        meta: {
-          roles: ['admin', 'editor'],
-          title: 'icon 集合',
-          icon: 'grain',
-          keepAlive: true
-        },
-        component: () => import('pages/components/icon')
-      },
-      {
-        path: 'loading-bar',
-        name: 'loading-bar',
-        meta: {
-          roles: ['admin', 'test'],
-          title: 'loading-bar',
-          icon: 'rotate_right',
-          keepAlive: true
-        },
-        component: () => import('pages/components/loadingBar')
-      },
-      {
-        path: 'markdown',
-        name: 'markdown',
-        meta: {
-          roles: ['admin', 'test'],
-          title: 'markdown',
-          icon: 'edit_road',
-          keepAlive: true
-        },
-        component: () => import('pages/components/markdown')
-      },
-      {
-        path: 'json',
-        name: 'json',
-        meta: {
-          roles: ['admin', 'test'],
-          title: 'json',
-          icon: 'settings_ethernet',
-          keepAlive: true
-        },
-        component: () => import('pages/components/json')
-      }
     ]
   },
   {
-    path: '/axios',
-    name: 'axios',
+    path: routingArea.console + '/announcement',
+    name: 'announcement',
     meta: {
-      roles: ['admin', 'editor'],
-      title: 'axios',
-      icon: 'http',
-      keepAlive: true
-    },
-    component: () => import('pages/axios/axios.vue')
-  },
-  {
-    path: '/menu-1',
-    name: 'menu-1',
-    meta: {
-      roles: ['admin', 'test'],
-      title: '三级菜单',
-      icon: 'filter_3'
+      roles: ['admin', 'user', 'test'],
+      title: '公告管理',
+      icon: 'article',
+      keepAlive: true,
     },
     component: layout,
     children: [
       {
-        path: 'menu-2',
-        name: 'menu-2',
+        path: 'user-list',
+        name: 'user-list',
         meta: {
-          roles: ['admin', 'test'],
-          title: '菜单 1-1',
-          icon: 'filter_2',
+          roles: ['admin', 'user', 'test'],
+          title: '公告列表',
+          icon: 'reorder',
           keepAlive: true
         },
-        component: layout,
-        children: [
-          {
-            path: 'menu-3',
-            name: 'menu3',
-            meta: {
-              roles: ['admin', 'test'],
-              title: '菜单 1-2',
-              icon: 'filter_1',
-              keepAlive: true
-            },
-            component: () => import('pages/components/menu3.vue')
-          }
-        ]
+        component: () => import('pages/user/selfEdit')
       }
     ]
   },
   {
-    path: 'http://www.quasarchs.com/vue-components/button',
-    name: 'external-link',
+    path: '/admin',
+    name: 'admin',
     meta: {
-      roles: ['admin', 'editor'],
-      title: '外部链接/更多组件',
-      icon: 'send'
-    }
-  },
-  {
-    path: '/lottie',
-    name: 'lottie',
-    meta: {
-      roles: ['admin', 'editor'],
-      title: 'lottie 动效',
-      itemLabel: 'MY SHARE',
-      icon: 'videocam',
+      roles: ['admin'],
+      title: '网站配置',
+      itemLabel: '后台区域',
+      icon: 'coronavirus',
       keepAlive: true
     },
     component: () => import('pages/lottie/lottie')
   },
   {
-    path: '/table-detail',
-    name: 'tableDetail',
+    path: '/card',
+    name: 'card',
     meta: {
-      roles: ['admin', 'editor'],
-      title: 'Treats 详情',
-      icon: 'blur_linear',
-      isHidden: true
+      roles: ['admin'],
+      title: '卡密管理',
+      icon: 'coronavirus',
+      keepAlive: true
     },
-    component: () => import('pages/home/tableDetail')
-  },
-  {
-    path: '/cimo',
-    name: 'cimo',
-    meta: {
-      roles: ['admin', 'editor'],
-      title: '关于作者',
-      icon: 'fab fa-studiovinari',
-      isHidden: true
-    },
-    component: () => import('pages/components/cimo')
+    component: () => import('pages/lottie/lottie')
   },
   {
     path: '*', // This must be placed at the bottom

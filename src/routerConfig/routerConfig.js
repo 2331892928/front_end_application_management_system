@@ -14,6 +14,14 @@ const routerConfig = {
     out: '/out',
     istoken: '/istoken',
     refreshKey: '/refreshKey'
+  },
+  ConfigService: {
+    main: '/config',
+    get: '/get'
+  },
+  AppService: {
+    main: '/app',
+    getAppList:'/getapplist'
   }
 }
 // export default routerConfig
